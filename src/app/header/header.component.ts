@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data/data.service';
 
 @Component({
   selector: 'app-header',
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  onLogout() {
+    this.data.logged.name = '';
+    this.data.logged.password = ''; 
+  }
+
+  constructor(private data:DataService) { }
 
   ngOnInit() {
   }

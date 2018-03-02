@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../../app/book';
-import { Books } from '../../api/books/books';
+import { DataService } from '../data/data.service';
 
 @Component({
   selector: 'app-library',
@@ -8,7 +8,7 @@ import { Books } from '../../api/books/books';
   styleUrls: ['./library.component.css']
 })
 export class LibraryComponent implements OnInit {
-  books = Books;
+  books = this.data.books;
 
   numberOfStars(stars: number) {
     return Array.from(Array(stars), (_,x) => x);
@@ -40,7 +40,7 @@ export class LibraryComponent implements OnInit {
     return Math.round(book.rate.sum/book.rate.voters.length);
   }
 
-  constructor() { }
+  constructor(private data:DataService) { }
 
   ngOnInit() {
   }

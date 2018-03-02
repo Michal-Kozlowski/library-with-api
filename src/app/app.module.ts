@@ -12,6 +12,7 @@ import { UserComponent } from './user/user.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { BookComponent } from './book/book.component';
 import { AppRoutingModule } from './/app-routing.module';
+import { DataService } from './data/data.service';
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import { AppRoutingModule } from './/app-routing.module';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

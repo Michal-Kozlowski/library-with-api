@@ -6,11 +6,21 @@
       <span class="author">{{book.author}}</span>
     </p>
     <p class="description">{{book.description}}</p>
-    <!-- <button class="waves-effect waves-light btn" v-if="books[id].borrowedBy === ''" @click.prevent="borrow(books[id])">Borrow</button>
-    <button class="waves-effect waves-light btn disabled" v-if="books[id].borrowedBy === logged.name && books[id].borrowedBy !== ''">Borrowed by You</button>
-    <button class="waves-effect waves-light btn disabled" v-if="books[id].borrowedBy !== '' && books[id].borrowedBy !== logged.name">Borrowed</button> -->
-    <!-- <router-link :to="{name: 'library'}" class="blue-text text-darken-2">Back to The Library</span></router-link> -->
+    <button class="waves-effect waves-light btn" v-if="book.borrowedBy === ''">Borrow</button>
+    <!-- <button class="waves-effect waves-light btn" v-if="book.borrowedBy === ''" @click.prevent="borrow(book)">Borrow</button> -->
+    <!-- <button class="waves-effect waves-light btn disabled" v-if="book.borrowedBy === logged.name && book.borrowedBy !== ''">Borrowed by You</button> -->
+    <!-- <button class="waves-effect waves-light btn disabled" v-if="book.borrowedBy !== '' && book.borrowedBy !== logged.name">Borrowed</button> -->
+    
+    <a [routerLink]="['/library']" class="blue-text text-darken-2">Back to The Library</a>
     <div class="right">
+      <i
+        *ngFor="let star of numberOfStars(5); let index = index"
+        (mouseover)="starsHover(index, book.id)"
+        (mouseleave)="starsLeave(index, book.id)"
+        [class.rate]="index < rating(book)"
+        
+        class="material-icons">star
+      </i>
       <!-- <i 
         v-for="(star, index) in 5"
         @mouseover="starsHover(index)"
