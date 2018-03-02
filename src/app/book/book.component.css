@@ -1,0 +1,58 @@
+.book, .comment {
+  background-color: rgba(255,255,255,0.3);
+  border: 1px solid rgba(0,0,0,0.3);
+  border-radius: 5px;
+  margin-top: 1%;
+  padding: 2% 10%;
+}
+
+h1, p {
+  text-align: center;
+}
+
+.title {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.author {
+  font-style: italic;
+}
+
+.description {
+  text-align: justify;
+}
+
+.responsive-img {
+  max-height: 450px;
+  display: block;
+  margin: auto;
+  box-shadow: 8px 8px 12px black;
+}
+
+button {
+  display: block;
+  margin: auto;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+i {
+  font-size: 1.2em;
+  margin-top: 6px;
+  cursor: pointer;
+}
+
+.starHover {      
+  font-size: 1.4em;
+  color: gold;
+  margin-top: 3px;
+  text-shadow: 0 0 25px black, 0 0 10px black, 0 0 4px white, 1px 2px 1px black;
+}
+
+.rate {
+  color: gold;
+  text-shadow: 0 0 25px black, 0 0 10px black, 0 0 4px white, 1px 2px 1px black;
+}
