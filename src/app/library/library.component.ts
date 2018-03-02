@@ -40,6 +40,22 @@ export class LibraryComponent implements OnInit {
     return Math.round(book.rate.sum/book.rate.voters.length);
   }
 
+  rate(index, book) {
+    if(this.data.logged.name){
+      if(!this.books[book.id-1].rate.voters.includes(this.data.logged.name)) { 
+        const vote = {
+          value: index,
+          id: book.id-1
+        }  
+        this.data.rate(vote);
+      } else {
+        alert("You have already rated this book!");
+      }          
+    } else {
+      alert("You have to log in to do that!"); 
+    }
+  }
+
   constructor(private data:DataService) { }
 
   ngOnInit() {

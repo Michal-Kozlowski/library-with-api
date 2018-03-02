@@ -20,6 +20,11 @@ export class DataService {
     { bookID: 3, text: "This is the fifth comment" , author: "Monika" }
   ];
   
+  rate(vote){
+    this.books[vote.id].rate.sum += vote.value + 1;
+    this.books[vote.id].rate.voters.push(this.logged.name);
+  }
+
   constructor() { }
 
 }

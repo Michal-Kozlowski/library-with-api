@@ -6,8 +6,8 @@
       <span class="author">{{book.author}}</span>
     </p>
     <p class="description">{{book.description}}</p>
-    <button class="waves-effect waves-light btn" v-if="book.borrowedBy === ''">Borrow</button>
-    <!-- <button class="waves-effect waves-light btn" v-if="book.borrowedBy === ''" @click.prevent="borrow(book)">Borrow</button> -->
+    <button class="waves-effect waves-light btn" *ngIf="book.borrowedBy === ''">Borrow</button>
+    <!-- <button class="waves-effect waves-light btn" *ngIf="book.borrowedBy === ''" @click.prevent="borrow(book)">Borrow</button> -->
     <!-- <button class="waves-effect waves-light btn disabled" v-if="book.borrowedBy === logged.name && book.borrowedBy !== ''">Borrowed by You</button> -->
     <!-- <button class="waves-effect waves-light btn disabled" v-if="book.borrowedBy !== '' && book.borrowedBy !== logged.name">Borrowed</button> -->
     

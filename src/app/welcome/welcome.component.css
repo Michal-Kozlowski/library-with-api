@@ -1,0 +1,13 @@
+#welcome {
+  text-align: center;
+  margin-top: 20%;
+}
+
+h1 {
+  font-weight: bold;
+  text-shadow: 0 0 10px white, 0 0 25px white, 0 0 50px white;
+}
+
+.blue-text {
+  font-weight: bold;
+}

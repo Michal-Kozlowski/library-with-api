@@ -9,23 +9,20 @@
   <ul class="row">
     <ng-container *ngFor="let book of books">
       <li class="col s6 m4 l3" *ngIf="matchName(book) || matchAuthor(book)">
-        <!-- <router-link :to="{name: 'book', params: {id: book.id}}"> -->
+        <p><i
+          *ngFor="let star of numberOfStars(5); let index = index"
+          (mouseover)="starsHover(index, book.id)"
+          (mouseleave)="starsLeave(index, book.id)"
+          [class.rate]="index < rating(book)"
+          (click)="rate(index, book)"
+          class="material-icons">star
+        </i></p>
         <a [routerLink]="['/library', book.id]">
-          <p><i
-            *ngFor="let star of numberOfStars(5); let index = index"
-            (mouseover)="starsHover(index, book.id)"
-            (mouseleave)="starsLeave(index, book.id)"
-            [class.rate]="index < rating(book)"
-            
-            class="material-icons">star
-          </i></p>
           <img [src]="book.cover" [alt]="book.name" class="responsive-img">
           <p>
             <span class="status green" *ngIf="book.borrowedBy === ''">available</span>
-            <!-- <span class="status blue" *ngIf="book.borrowedBy === logged.name && book.borrowedBy !== ''">borrowed by you</span>
-            <span class="status red" *ngIf="book.borrowedBy !== '' && book.borrowedBy !== logged.name">borrowed</span> -->
-            <span class="status blue" *ngIf="book.borrowedBy === 'Michał' && book.borrowedBy !== ''">borrowed by you</span>
-            <span class="status red" *ngIf="book.borrowedBy !== '' && book.borrowedBy !== 'Michał'">borrowed</span>
+            <span class="status blue" *ngIf="book.borrowedBy === this.data.logged.name && book.borrowedBy !== ''">borrowed by you</span>
+            <span class="status red" *ngIf="book.borrowedBy !== '' && book.borrowedBy !== this.data.logged.name">borrowed</span>
           </p>
           <p>
             <span class="title">{{book.name}}</span><br>
@@ -36,6 +33,3 @@
     </ng-container>
   </ul>
 </div>
-
-
-<!-- @click.prevent="rate(index, book)"  -->
