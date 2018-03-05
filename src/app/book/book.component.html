@@ -13,10 +13,10 @@
     <div class="right">
       <!-- in mouseover and mouseleave "1" is there to reuse the function from library component (from DataService)-->
       <i
-        *ngFor="let star of numberOfStars(5); let index = index"
+        *ngFor="let star of data.numberOfStars(5); let index = index"
         (mouseover)="data.starsHover(index, 1)"
         (mouseleave)="data.starsLeave(index, 1)"
-        [class.rate]="index < rating()"
+        [class.rate]="index < data.rating(book)"
         (click)="data.starRate(index, book)"
         class="material-icons">star
       </i>

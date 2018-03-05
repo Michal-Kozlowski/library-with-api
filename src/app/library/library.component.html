@@ -10,10 +10,10 @@
     <ng-container *ngFor="let book of books">
       <li class="col s6 m4 l3" *ngIf="matchName(book) || matchAuthor(book)">
         <p><i
-          *ngFor="let star of numberOfStars(5); let index = index"
+          *ngFor="let star of data.numberOfStars(5); let index = index"
           (mouseover)="data.starsHover(index, book.id)"
           (mouseleave)="data.starsLeave(index, book.id)"
-          [class.rate]="index < rating(book)"
+          [class.rate]="index < data.rating(book)"
           (click)="data.starRate(index, book)"
           class="material-icons">star
         </i></p>

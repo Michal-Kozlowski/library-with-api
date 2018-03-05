@@ -1,3 +1,17 @@
-<p>
-  user works!
-</p>
+<div id="user">
+  <ul class="row">
+    <h3 class="center">Here you can see all your borrowed books.</h3>
+    <ng-container *ngFor="let book of data.books">
+      <li class="col s6 m4 l3" *ngIf="data.logged.name === book.borrowedBy">
+        <a [routerLink]="['/library', book.id]">
+          <img [src]="book.cover" [alt]="book.name" class="responsive-img">
+          <button class="waves-effect waves-light btn" (click)="returnBook(book)" *ngIf="book.borrowedBy === data.logged.name">return</button>          
+          <p>
+            <span class="title">{{book.name}}</span><br>
+            <span class="author">{{book.author}}</span>
+          </p>
+        </a>
+      </li>
+    </ng-container>    
+  </ul>
+</div>

@@ -10,10 +10,6 @@ import { DataService } from '../data/data.service';
 export class LibraryComponent implements OnInit {
   books = this.data.books;
 
-  numberOfStars(stars: number) {
-    return Array.from(Array(stars), (_,x) => x);
-  }
-
   search: string = '';
 
   matchName(book: Book) {
@@ -22,10 +18,6 @@ export class LibraryComponent implements OnInit {
 
   matchAuthor(book: Book) {
     return book.author.toLowerCase().includes(this.search.toLowerCase());
-  }
-
-  rating(book) {
-    return Math.round(book.rate.sum/book.rate.voters.length);
   }
 
   constructor(private data:DataService) { }

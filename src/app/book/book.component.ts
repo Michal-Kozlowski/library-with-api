@@ -15,14 +15,6 @@ export class BookComponent implements OnInit {
 
   comment: string = '';
 
-  numberOfStars(stars: number) {
-    return Array.from(Array(stars), (_,x) => x);
-  }
-
-  rating() {
-    return Math.round(this.book.rate.sum/this.book.rate.voters.length);
-  }
-
   borrow() {
     this.book.borrowedBy = this.data.logged.name;
   }

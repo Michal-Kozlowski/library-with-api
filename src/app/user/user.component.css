@@ -27,7 +27,7 @@ li {
   overflow-y: hidden;
   border: 1px solid rgba(0,0,0,0.3);
   border-radius: 5px;
-  height: 380px;
+  height: 365px;
   padding-bottom: 50px;
 }
 
@@ -52,13 +52,14 @@ p {
 }
 
 .responsive-img {
-  height: 230px;
+  height: 210px;
   display: block;
   margin: auto;
-  padding-top: 15px;
+  margin-top: 15px;
+  box-shadow: 2px 2px 10px #000;
 }
 
 button {
   display: block;
-  margin: 5px auto 0;
+  margin: 10px auto 0;
 }

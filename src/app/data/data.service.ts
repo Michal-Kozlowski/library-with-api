@@ -19,6 +19,14 @@ export class DataService {
     { bookID: 2, text: "This is the fourth comment" , author: "Max" },
     { bookID: 3, text: "This is the fifth comment" , author: "Monika" }
   ];
+
+  rating(book) {
+    return Math.round(book.rate.sum/book.rate.voters.length);
+  }
+
+  numberOfStars(stars: number) {
+    return Array.from(Array(stars), (_,x) => x);
+  }
   
   rate(vote){
     this.books[vote.id].rate.sum += vote.value + 1;

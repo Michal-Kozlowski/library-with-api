@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data/data.service';
 
 @Component({
   selector: 'app-user',
@@ -6,8 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+  returnBook( book) {    
+    book.borrowedBy = '';
+    return false;
+  }
 
-  constructor() { }
+  constructor(private data:DataService) { }
 
   ngOnInit() {
   }
