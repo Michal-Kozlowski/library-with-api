@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-// import { Book } from '../../app/book';
 import { Books } from '../../api/books/books';
 
 @Injectable()
@@ -20,6 +19,21 @@ export class DataService {
     { bookID: 3, text: "This is the fifth comment" , author: "Monika" }
   ];
 
+  saveData() {
+    let local = {books: this.books, users: this.users, logged: this.logged, comments: this.comments};
+    localStorage.setItem('libraryState', JSON.stringify(local));
+  }
+
+  loadData() {
+    let local = localStorage.getItem('libraryState');
+    if(local) {   
+      this.books = JSON.parse(local).books;    
+      this.users = JSON.parse(local).users;
+      this.logged = JSON.parse(local).logged;
+      this.comments = JSON.parse(local).comments;
+    }
+  }
+
   rating(book) {
     return Math.round(book.rate.sum/book.rate.voters.length);
   }
@@ -31,6 +45,7 @@ export class DataService {
   rate(vote){
     this.books[vote.id].rate.sum += vote.value + 1;
     this.books[vote.id].rate.voters.push(this.logged.name);
+    this.saveData();
   }
 
   starsHover(index, id) {

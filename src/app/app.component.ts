@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-// import { DataService } from './data/data.service';
+import { DataService } from './data/data.service';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +9,9 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'The Library';
 
-  // constructor(private data:DataService){}
+  constructor(private data:DataService){}
+
+  ngOnInit() {
+    this.data.loadData();
+  }
 }

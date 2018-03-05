@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit {
   onLogout() {
     this.data.logged.name = '';
     this.data.logged.password = ''; 
+    this.data.saveData();
   }
 
   constructor(private data:DataService) { }

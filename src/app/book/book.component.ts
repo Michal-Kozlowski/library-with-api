@@ -16,7 +16,12 @@ export class BookComponent implements OnInit {
   comment: string = '';
 
   borrow() {
-    this.book.borrowedBy = this.data.logged.name;
+    if(this.data.logged.name === '') {
+      alert("You need to log in to borrow books!");
+    } else {
+      this.book.borrowedBy = this.data.logged.name;
+      this.data.saveData();
+    }
   }
   
   match_id(comment) {
@@ -26,10 +31,12 @@ export class BookComponent implements OnInit {
   addComment() {
     this.data.comments.push({bookID: this.id, text: this.comment , author: this.data.logged.name});
     this.comment = '';
+    this.data.saveData();
   }
 
   deleteComment(index) {
     this.data.comments.splice(index, 1);
+    this.data.saveData();
   }
 
   constructor(private _route: ActivatedRoute, private data:DataService) { }

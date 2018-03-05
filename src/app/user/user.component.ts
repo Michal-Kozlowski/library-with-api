@@ -9,6 +9,7 @@ import { DataService } from '../data/data.service';
 export class UserComponent implements OnInit {
   returnBook( book) {    
     book.borrowedBy = '';
+    this.data.saveData();
     return false;
   }
 
