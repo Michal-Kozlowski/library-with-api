@@ -25,6 +25,34 @@ export class DataService {
     this.books[vote.id].rate.voters.push(this.logged.name);
   }
 
+  starsHover(index, id) {
+    for(let i:number = 0; i<=index; i++) {
+      document.querySelectorAll("i")[(5*(id-1))+index-i].classList.add('starHover');
+    }
+  }
+
+  starsLeave(index, id) {
+    for(let i:number = 0; i<=index; i++) {
+      document.querySelectorAll("i")[(5*(id-1))+index-i].classList.remove('starHover');
+    }
+  }
+
+  starRate(index, book) {
+    if(this.logged.name){
+      if(!this.books[book.id-1].rate.voters.includes(this.logged.name)) { 
+        const vote = {
+          value: index,
+          id: book.id-1
+        }  
+        this.rate(vote);
+      } else {
+        alert("You have already rated this book!");
+      }          
+    } else {
+      alert("You have to log in to do that!"); 
+    }
+  }
+
   constructor() { }
 
 }

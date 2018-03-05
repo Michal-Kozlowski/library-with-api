@@ -10,20 +10,39 @@ import { DataService } from '../data/data.service';
   styleUrls: ['./book.component.css']
 })
 export class BookComponent implements OnInit {
-  book: Book;
+  id = +this._route.snapshot.paramMap.get('id');
+  book: Book = this.data.books[this.id-1];
+
+  comment: string = '';
 
   numberOfStars(stars: number) {
     return Array.from(Array(stars), (_,x) => x);
   }
 
-  rating(book) {
-    return Math.round(book.rate.sum/book.rate.voters.length);
+  rating() {
+    return Math.round(this.book.rate.sum/this.book.rate.voters.length);
+  }
+
+  borrow() {
+    this.book.borrowedBy = this.data.logged.name;
+  }
+  
+  match_id(comment) {
+    return comment.bookID == this.id;
+  }
+
+  addComment() {
+    this.data.comments.push({bookID: this.id, text: this.comment , author: this.data.logged.name});
+    this.comment = '';
+  }
+
+  deleteComment(index) {
+    this.data.comments.splice(index, 1);
   }
 
   constructor(private _route: ActivatedRoute, private data:DataService) { }
 
   ngOnInit() {
-    let id = +this._route.snapshot.paramMap.get('id');
-    this.book = this.data.books[id-1];
-  }
+
+  }  
 }

@@ -11,10 +11,10 @@
       <li class="col s6 m4 l3" *ngIf="matchName(book) || matchAuthor(book)">
         <p><i
           *ngFor="let star of numberOfStars(5); let index = index"
-          (mouseover)="starsHover(index, book.id)"
-          (mouseleave)="starsLeave(index, book.id)"
+          (mouseover)="data.starsHover(index, book.id)"
+          (mouseleave)="data.starsLeave(index, book.id)"
           [class.rate]="index < rating(book)"
-          (click)="rate(index, book)"
+          (click)="data.starRate(index, book)"
           class="material-icons">star
         </i></p>
         <a [routerLink]="['/library', book.id]">

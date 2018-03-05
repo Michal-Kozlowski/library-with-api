@@ -6,39 +6,32 @@
       <span class="author">{{book.author}}</span>
     </p>
     <p class="description">{{book.description}}</p>
-    <button class="waves-effect waves-light btn" *ngIf="book.borrowedBy === ''">Borrow</button>
-    <!-- <button class="waves-effect waves-light btn" *ngIf="book.borrowedBy === ''" @click.prevent="borrow(book)">Borrow</button> -->
-    <!-- <button class="waves-effect waves-light btn disabled" v-if="book.borrowedBy === logged.name && book.borrowedBy !== ''">Borrowed by You</button> -->
-    <!-- <button class="waves-effect waves-light btn disabled" v-if="book.borrowedBy !== '' && book.borrowedBy !== logged.name">Borrowed</button> -->
-    
+    <button class="waves-effect waves-light btn" *ngIf="book.borrowedBy === ''" (click)="borrow()">Borrow</button>
+    <button class="waves-effect waves-light btn disabled" *ngIf="book.borrowedBy === data.logged.name && book.borrowedBy !== ''">Borrowed by You</button>
+    <button class="waves-effect waves-light btn disabled" *ngIf="book.borrowedBy !== '' && book.borrowedBy !== data.logged.name">Borrowed</button>    
     <a [routerLink]="['/library']" class="blue-text text-darken-2">Back to The Library</a>
     <div class="right">
+      <!-- in mouseover and mouseleave "1" is there to reuse the function from library component (from DataService)-->
       <i
         *ngFor="let star of numberOfStars(5); let index = index"
-        (mouseover)="starsHover(index, book.id)"
-        (mouseleave)="starsLeave(index, book.id)"
-        [class.rate]="index < rating(book)"
-        
+        (mouseover)="data.starsHover(index, 1)"
+        (mouseleave)="data.starsLeave(index, 1)"
+        [class.rate]="index < rating()"
+        (click)="data.starRate(index, book)"
         class="material-icons">star
       </i>
-      <!-- <i 
-        v-for="(star, index) in 5"
-        @mouseover="starsHover(index)"
-        @mouseleave="starsLeave(index)"
-        @click="rate(index)" 
-        :class="{rate:index < Math.round(books[id].rate.sum/books[id].rate.voters.length)}" 
-        class="material-icons">star
-      </i> -->
     </div>
   </div>
-  <!-- <ul>
-    <li class="comment" v-for="(comment, index) in comments" v-if="match_id(comment)">
-      {{comment.text}} - <span class="author">{{comment.author}}</span>
-      <button v-if="logged.name === comment.author" @click="deleteComment(index)" class="waves-effect waves-light btn">delete</button>
-    </li>
+  <ul>
+    <ng-container *ngFor="let comment of data.comments; let index = index">
+      <li class="comment" *ngIf="match_id(comment)">
+        {{comment.text}} - <span class="author">{{comment.author}}</span>
+        <button *ngIf="data.logged.name === comment.author" (click)="deleteComment(index)" class="waves-effect waves-light btn">delete</button>
+      </li>
+    </ng-container>
   </ul>
-  <form v-show="logged.name !== ''">
-    <input type="text" name="comment" v-model="comment">
-    <button class="waves-effect waves-light btn" @click.prevent="addComment()">Add comment</button>
-  </form> -->
+  <form *ngIf="data.logged.name !== ''">
+    <input type="text" name="comment" [(ngModel)]="comment">
+    <button class="waves-effect waves-light btn" (click)="addComment()">Add comment</button>
+  </form>
 </div>
