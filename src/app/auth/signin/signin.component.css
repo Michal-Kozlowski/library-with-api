@@ -1,0 +1,87 @@
+fieldset {
+  background-color: rgba(0,0,0,0.7);
+  max-width: 400px;
+  border-radius: 5px;
+  margin: 0 auto;
+  box-shadow: 0 0 30px 2px black;
+}
+
+legend {
+  font-size: 2em;
+  text-align: center;
+  text-shadow: 0 0 20px white, 0 0 10px white;
+}
+
+div:not(:last-child) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+input {
+  font-size: 1.1em;
+  color: white;
+  width: 90%;
+  border-radius: 5px;
+}
+
+label {
+  text-transform: capitalize;
+  display: block;
+  margin-bottom: 4px;
+  text-shadow: 0 0 5px black;
+}
+
+.material-icons {
+  font-size: 2em;
+  color: white;
+  padding-left: 18px;
+  transform: translateY(12px);
+}
+
+input[type="submit"] {
+  color: black;
+  text-transform: capitalize;
+  cursor: pointer;
+  width: 120px;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 0.8em;
+  color: white;
+  max-width: 80%;
+  padding-left: 25px;
+  margin: 2px auto 0;
+}
+
+.invalid label {
+  color: red;
+}
+
+.invalid input {
+  border: 2px solid red;
+}
+
+.invalid input {
+  animation: shake .5s;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+@media only screen and (min-height: 768px) {
+  fieldset {
+    margin: 10vh auto 0;
+  }
+}
