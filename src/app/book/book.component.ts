@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Book } from '../../app/book';
+import { Comment } from '../../app/comment';
 import { DataService } from '../data/data.service';
 
 @Component({
@@ -11,7 +12,8 @@ import { DataService } from '../data/data.service';
 })
 export class BookComponent implements OnInit {
   id = +this._route.snapshot.paramMap.get('id');
-  book: Book = this.data.books[this.id-1];
+  book: Book;
+  comments: any;
 
   comment: string = '';
 
@@ -20,7 +22,7 @@ export class BookComponent implements OnInit {
       alert("You need to log in to borrow books!");
     } else {
       this.book.borrowedBy = this.data.logged.name;
-      this.data.saveData();
+      this.data.borrow(this.book, this.data.logged.name);
     }
   }
   
@@ -28,20 +30,40 @@ export class BookComponent implements OnInit {
     return comment.bookID == this.id;
   }
 
-  addComment() {
-    this.data.comments.push({bookID: this.id, text: this.comment , author: this.data.logged.name});
-    this.comment = '';
-    this.data.saveData();
+  bookUrl: string = 'http://localhost:3000/Books/' + this.id;
+  commentsUrl: string = 'http://localhost:3000/Comments';
+  commentUrl: string = this.commentsUrl + '?bookID=' + this.id;
+
+  addComment() {  
+    this.data.addComment(this.commentsUrl, { "bookID": this.id, "text": this.comment , "author": this.data.logged.name })
+      .subscribe(comment => {
+        this.comments.push(comment);
+        },
+        error => this.data.errorMessage = <any>error);  
+    this.comment = "";
   }
 
-  deleteComment(index) {
-    this.data.comments.splice(index, 1);
-    this.data.saveData();
+  deleteComment(comment: Comment) {
+    this.comments = this.comments.filter(c => c !== comment);
+    
+    let urlToDelete: string = this.commentsUrl + "/" + comment.id;    
+    this.data.deleteComment(urlToDelete)
+      .subscribe(error => this.data.errorMessage = <any>error);
   }
 
   constructor(private _route: ActivatedRoute, private data:DataService) { }
-
+  
   ngOnInit() {
+    this.data.getBook(this.bookUrl)
+      .subscribe(book => {
+        this.book = book;
+      },
+      error => this.data.errorMessage = <any>error);
 
-  }  
+    this.data.getComments(this.commentUrl)
+      .subscribe(comments => {
+        this.comments = comments;
+      },
+      error => this.data.errorMessage = <any>error);  
+  }
 }

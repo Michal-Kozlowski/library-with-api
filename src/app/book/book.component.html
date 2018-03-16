@@ -1,4 +1,4 @@
-<div id="book">
+<div id="book" *ngIf="book">
   <div class="book">
     <img [src]="book.cover" [alt]="book.name" class="responsive-img">
     <p>
@@ -23,10 +23,10 @@
     </div>
   </div>
   <ul>
-    <ng-container *ngFor="let comment of data.comments; let index = index">
+    <ng-container *ngFor="let comment of comments">
       <li class="comment" *ngIf="match_id(comment)">
         {{comment.text}} - <span class="author">{{comment.author}}</span>
-        <button *ngIf="data.logged.name === comment.author" (click)="deleteComment(index)" class="waves-effect waves-light btn">delete</button>
+        <button *ngIf="data.logged.name === comment.author" (click)="deleteComment(comment)" class="waves-effect waves-light btn">delete</button>
       </li>
     </ng-container>
   </ul>

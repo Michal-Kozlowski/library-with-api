@@ -8,7 +8,7 @@ import { DataService } from '../data/data.service';
   styleUrls: ['./library.component.css']
 })
 export class LibraryComponent implements OnInit {
-  books = this.data.books;
+  books: Book[];
 
   search: string = '';
 
@@ -23,5 +23,10 @@ export class LibraryComponent implements OnInit {
   constructor(private data:DataService) { }
 
   ngOnInit() {
+    this.data.getBooks('http://localhost:3000/Books')
+      .subscribe(books => {
+        this.books = books;
+      },
+      error => this.data.errorMessage = <any>error);    
   }
 }
