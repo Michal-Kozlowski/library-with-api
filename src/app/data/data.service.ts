@@ -16,7 +16,7 @@ export class DataService {
     { name: 'Monika', password: 'password'},
     { name: 'Max', password: 'password'}
   ];
-  logged: { name: string, password: string } = { name: 'Michał', password: 'password'};
+  logged: { name: string, password: string } = { name: '', password: ''};
 
   errorMessage: string;
   
@@ -58,7 +58,7 @@ export class DataService {
   starRate(index, book) {        
     if(this.logged.name){
       if(!book.rate.voters.includes(this.logged.name)) {
-        let url = 'http://localhost:3000/Books/' + book.id;
+        let url = 'http://library-json-server-api.herokuapp.com/Books/' + book.id;
         book.rate.sum += index + 1;
         book.rate.voters.push(this.logged.name);
         this.updateBook(url, book)
@@ -75,7 +75,7 @@ export class DataService {
   }
 
   borrow(book, name) {
-    let url = 'http://localhost:3000/Books/' + book.id;
+    let url = 'http://library-json-server-api.herokuapp.com/Books/' + book.id;
     book.borrowedBy = this.logged.name;
     this.updateBook(url, book)
       .subscribe(book => {
@@ -85,7 +85,7 @@ export class DataService {
   }
 
   // returns books with M in it
-  // http://localhost:3000/Books?name_like=M
+  // http://library-json-server-api.herokuapp.com/Books?name_like=M
 
   constructor(private _http: HttpClient) { }
 

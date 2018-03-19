@@ -13,7 +13,7 @@ export class UserComponent implements OnInit {
   returnBook(book, event) {    
     book.borrowedBy = '';
     this.books = this.books.filter(b => b !== book);
-    let url = 'http://localhost:3000/Books/' + book.id
+    let url = 'http://library-json-server-api.herokuapp.com/Books/' + book.id
     this.data.updateBook(url, book)
       .subscribe(book => {
         book = book;
@@ -23,7 +23,7 @@ export class UserComponent implements OnInit {
 
   constructor(private data:DataService) { }
 
-  userUrl: string = 'http://localhost:3000/Books?borrowedBy=' + this.data.logged.name;
+  userUrl: string = 'http://library-json-server-api.herokuapp.com/Books?borrowedBy=' + this.data.logged.name;
 
   ngOnInit() {
     this.data.getBook(this.userUrl)

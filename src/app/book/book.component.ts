@@ -30,8 +30,8 @@ export class BookComponent implements OnInit {
     return comment.bookID == this.id;
   }
 
-  bookUrl: string = 'http://localhost:3000/Books/' + this.id;
-  commentsUrl: string = 'http://localhost:3000/Comments';
+  bookUrl: string = 'http://library-json-server-api.herokuapp.com/Books/' + this.id;
+  commentsUrl: string = 'http://library-json-server-api.herokuapp.com/Comments';
   commentUrl: string = this.commentsUrl + '?bookID=' + this.id;
 
   addComment() {  
