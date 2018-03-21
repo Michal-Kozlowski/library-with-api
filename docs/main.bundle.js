@@ -412,8 +412,8 @@ var BookComponent = /** @class */ (function () {
         this.data = data;
         this.id = +this._route.snapshot.paramMap.get('id');
         this.comment = '';
-        this.bookUrl = 'http://library-json-server-api.herokuapp.com/Books/' + this.id;
-        this.commentsUrl = 'http://library-json-server-api.herokuapp.com/Comments';
+        this.bookUrl = 'https://library-json-server-api.herokuapp.com/Books/' + this.id;
+        this.commentsUrl = 'https://library-json-server-api.herokuapp.com/Comments';
         this.commentUrl = this.commentsUrl + '?bookID=' + this.id;
     }
     BookComponent.prototype.borrow = function () {
@@ -495,7 +495,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var DataService = /** @class */ (function () {
     // returns books with M in it
-    // http://library-json-server-api.herokuapp.com/Books?name_like=M
+    // https://library-json-server-api.herokuapp.com/Books?name_like=M
     function DataService(_http) {
         this._http = _http;
         this.logged = { name: '', email: '', idToken: '' };
@@ -527,7 +527,7 @@ var DataService = /** @class */ (function () {
         var _this = this;
         if (this.logged.name) {
             if (!book.rate.voters.includes(this.logged.name)) {
-                var url = 'http://library-json-server-api.herokuapp.com/Books/' + book.id;
+                var url = 'https://library-json-server-api.herokuapp.com/Books/' + book.id;
                 book.rate.sum += index + 1;
                 book.rate.voters.push(this.logged.name);
                 this.updateBook(url, book)
@@ -545,7 +545,7 @@ var DataService = /** @class */ (function () {
     };
     DataService.prototype.borrow = function (book, name) {
         var _this = this;
-        var url = 'http://library-json-server-api.herokuapp.com/Books/' + book.id;
+        var url = 'https://library-json-server-api.herokuapp.com/Books/' + book.id;
         book.borrowedBy = this.logged.name;
         this.updateBook(url, book)
             .subscribe(function (book) {
@@ -714,7 +714,7 @@ var LibraryComponent = /** @class */ (function () {
     };
     LibraryComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.data.getBooks('http://library-json-server-api.herokuapp.com/Books')
+        this.data.getBooks('https://library-json-server-api.herokuapp.com/Books')
             .subscribe(function (books) {
             _this.books = books;
         }, function (error) { return _this.data.errorMessage = error; });
