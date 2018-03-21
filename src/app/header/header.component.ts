@@ -10,8 +10,8 @@ export class HeaderComponent implements OnInit {
 
   onLogout() {
     this.data.logged.name = '';
-    this.data.logged.password = ''; 
-    this.data.saveData();
+    this.data.logged.email = '';
+    this.data.logged.idToken = '';
   }
 
   constructor(private data:DataService) { }

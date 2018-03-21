@@ -12,6 +12,5 @@ export class AppComponent {
   constructor(private data:DataService){}
 
   ngOnInit() {
-    this.data.loadData();
   }
 }

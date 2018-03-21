@@ -27,6 +27,6 @@ export class LibraryComponent implements OnInit {
       .subscribe(books => {
         this.books = books;
       },
-      error => this.data.errorMessage = <any>error);    
+      error => this.data.errorMessage = <any>error);
   }
 }

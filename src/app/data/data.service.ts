@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
+// import 'rxjs/add/operator/do';
 
 import { Book } from '../book';
 import { Comment } from '../comment';
@@ -11,27 +12,10 @@ import { Comment } from '../comment';
 export class DataService {
   books: Book[];
   comments: Comment[];
-  users: {name: string, password: string}[] = [
-    { name: 'Michał', password: 'password'},
-    { name: 'Monika', password: 'password'},
-    { name: 'Max', password: 'password'}
-  ];
-  logged: { name: string, password: string } = { name: '', password: ''};
+  logged: { name: string, email: string, idToken: string } = { name: '', email: '', idToken: ''};
+  users: { email: string, name: string }[] = [];
 
   errorMessage: string;
-  
-  saveData() {
-    let local = {users: this.users, logged: this.logged};
-    localStorage.setItem('libraryState', JSON.stringify(local));
-  }
-
-  loadData() {
-    let local = localStorage.getItem('libraryState');
-    if(local) {   
-      this.users = JSON.parse(local).users;
-      this.logged = JSON.parse(local).logged;
-    }
-  }
 
   rating(book) {
     return Math.round(book.rate.sum/book.rate.voters.length);
@@ -43,20 +27,20 @@ export class DataService {
 
   starsHover(index, id) {
     for(let i:number = 0; i<=index; i++) {
-      for(let j:number = 0; j<5; j++) {document.querySelectorAll("i")[(5*(id-1))+j].classList.add('noRate');} 
+      for(let j:number = 0; j<5; j++) {document.querySelectorAll("i")[(5*(id-1))+j].classList.add('noRate');}
       document.querySelectorAll("i")[(5*(id-1))+index-i].classList.add('starHover');
     }
   }
 
   starsLeave(index, id) {
     for(let i:number = 0; i<=index; i++) {
-      for(let j:number = 0; j<5; j++) {document.querySelectorAll("i")[(5*(id-1))+j].classList.remove('noRate');}   
+      for(let j:number = 0; j<5; j++) {document.querySelectorAll("i")[(5*(id-1))+j].classList.remove('noRate');}
       document.querySelectorAll("i")[(5*(id-1))+index-i].classList.remove('starHover');
     }
   }
 
-  starRate(index, book) {        
-    if(this.logged.name){
+  starRate(index, book) {
+    if(this.logged.name) {
       if(!book.rate.voters.includes(this.logged.name)) {
         let url = 'http://library-json-server-api.herokuapp.com/Books/' + book.id;
         book.rate.sum += index + 1;
@@ -65,12 +49,12 @@ export class DataService {
           .subscribe(book => {
             book = book;
           },
-          error => this.errorMessage = <any>error);  
+          error => this.errorMessage = <any>error);
       } else {
         alert("You have already rated this book!");
-      }          
+      }
     } else {
-      alert("You have to log in to do that!"); 
+      alert("You have to log in to do that!");
     }
   }
 
@@ -89,6 +73,7 @@ export class DataService {
 
   constructor(private _http: HttpClient) { }
 
+  //----api setup--------------------------------------------------
   getBooks(url): Observable<Book[]> {
     return this._http.get<Book[]>(url)
       .catch(this.handleError);
@@ -119,6 +104,31 @@ export class DataService {
       .catch(this.handleError);
   }
 
+  //----firebase setup---------------------------------------------
+  checkUsers(): Observable<any> {
+    return this._http.get<any>("https://library-log.firebaseio.com/users.json")
+      ._catch(this.handleError);
+  }
+
+  createUserName(name, email, idToken): Observable<any> {
+    let url:string = "https://library-log.firebaseio.com/users.json?auth=" + idToken;
+    return this._http.post<any>(url, {name, email})
+      ._catch(this.handleError);
+  }
+
+  signup(email, password): Observable<any> {
+    return this._http.post<any>("https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyAW898T5zbIY7YL7LFCiHH5geH4iqWVcTo", {"email":email, "password":password, "returnSecureToken":true})
+      // .do(data => console.log(data))
+      ._catch(this.handleError);
+  }
+
+  signin(email, password): Observable<any> {
+    return this._http.post<any>("https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyAW898T5zbIY7YL7LFCiHH5geH4iqWVcTo", {"email":email, "password":password, "returnSecureToken":true})
+      // .do(data => console.log(data))
+      ._catch(this.handleError);
+  }
+
+  //-----------------------------------------------------------
   private handleError(err: HttpErrorResponse) {
     console.log(err.message);
     return Observable.throw(err.message);

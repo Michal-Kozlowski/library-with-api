@@ -1,23 +1,26 @@
 <form method="POST" #form="ngForm" *ngIf="data.logged.name === ''">
   <fieldset>
     <legend>Please sign in</legend>
-    <div [class.invalid]="name.errors && name.touched">
+
+    <div [class.invalid]="email.errors && email.touched">
       <div class="row">
         <i class="material-icons col s2">account_box</i>
-        <input class="col s8" type="text" name="name" #name="ngModel" placeholder="name" required ngModel>
+        <input class="col s8" type="email" name="email" #email="ngModel" placeholder="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" ngModel>
       </div>
-        <p *ngIf="name.invalid && (name.dirty || name.touched)">What is your name?</p>
+        <p *ngIf="email.invalid && (email.dirty || email.touched)">What is your email? (or fake one (but valid))</p>
     </div>
+
     <div [class.invalid]="password.errors && password.touched">
       <div class="row">
         <i class="material-icons col s2">lock_outline</i>
-        <input class="col s8" type="password" name="password" #password="ngModel" placeholder="password" required ngModel>
+        <input class="col s8" type="password" name="password" #password="ngModel" placeholder="password" required minlength="6" ngModel>
       </div>
         <p *ngIf="password.errors && (password.dirty || password.touched)">Password is required</p>
     </div>
+
     <div class="row">
       <i class="material-icons col s4">assignment_turned_in</i>
-      <button class="waves-effect waves-light blue lighten-1 btn-large" type="submit" (click)="onSubmit(name.value, password.value)" [disabled]="form.invalid">login</button>
+      <button class="waves-effect waves-light blue lighten-1 btn-large" type="submit" (click)="onSubmit(email.value, password.value)" [disabled]="form.invalid">login</button>
     </div>
   </fieldset>
 </form>
