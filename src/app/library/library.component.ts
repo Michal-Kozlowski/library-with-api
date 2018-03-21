@@ -23,7 +23,7 @@ export class LibraryComponent implements OnInit {
   constructor(private data:DataService) { }
 
   ngOnInit() {
-    this.data.getBooks('http://library-json-server-api.herokuapp.com/Books')
+    this.data.getBooks('https://library-json-server-api.herokuapp.com/Books')
       .subscribe(books => {
         this.books = books;
       },

@@ -6,7 +6,7 @@ GitHub pages link: https://michal-kozlowski.github.io/library-with-api/
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-src/api/books/ folder has copy of db.json file that runs an api server. It is located on `http://library-json-server-api.herokuapp.com/`. The app is using this mocked api.
+src/api/books/ folder has copy of db.json file that runs an api server. It is located on `https://library-json-server-api.herokuapp.com/`. The app is using this mocked api.
 
 ## Code scaffolding
 

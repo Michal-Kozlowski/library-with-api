@@ -42,7 +42,7 @@ export class DataService {
   starRate(index, book) {
     if(this.logged.name) {
       if(!book.rate.voters.includes(this.logged.name)) {
-        let url = 'http://library-json-server-api.herokuapp.com/Books/' + book.id;
+        let url = 'https://library-json-server-api.herokuapp.com/Books/' + book.id;
         book.rate.sum += index + 1;
         book.rate.voters.push(this.logged.name);
         this.updateBook(url, book)
@@ -59,7 +59,7 @@ export class DataService {
   }
 
   borrow(book, name) {
-    let url = 'http://library-json-server-api.herokuapp.com/Books/' + book.id;
+    let url = 'https://library-json-server-api.herokuapp.com/Books/' + book.id;
     book.borrowedBy = this.logged.name;
     this.updateBook(url, book)
       .subscribe(book => {
@@ -69,7 +69,7 @@ export class DataService {
   }
 
   // returns books with M in it
-  // http://library-json-server-api.herokuapp.com/Books?name_like=M
+  // https://library-json-server-api.herokuapp.com/Books?name_like=M
 
   constructor(private _http: HttpClient) { }
 
