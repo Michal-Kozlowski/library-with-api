@@ -769,13 +769,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var UserComponent = /** @class */ (function () {
     function UserComponent(data) {
         this.data = data;
-        this.userUrl = 'http://library-json-server-api.herokuapp.com/Books?borrowedBy=' + this.data.logged.name;
+        this.userUrl = 'https://library-json-server-api.herokuapp.com/Books?borrowedBy=' + this.data.logged.name;
     }
     UserComponent.prototype.returnBook = function (book, event) {
         var _this = this;
         book.borrowedBy = '';
         this.books = this.books.filter(function (b) { return b !== book; });
-        var url = 'http://library-json-server-api.herokuapp.com/Books/' + book.id;
+        var url = 'https://library-json-server-api.herokuapp.com/Books/' + book.id;
         this.data.updateBook(url, book)
             .subscribe(function (book) {
             book = book;

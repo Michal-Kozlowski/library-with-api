@@ -9,27 +9,27 @@ import { Book } from '../book';
 })
 export class UserComponent implements OnInit {
   books: any;
-  
-  returnBook(book, event) {    
+
+  returnBook(book, event) {
     book.borrowedBy = '';
     this.books = this.books.filter(b => b !== book);
-    let url = 'http://library-json-server-api.herokuapp.com/Books/' + book.id
+    let url = 'https://library-json-server-api.herokuapp.com/Books/' + book.id
     this.data.updateBook(url, book)
       .subscribe(book => {
         book = book;
       },
-      error => this.data.errorMessage = <any>error);   
+      error => this.data.errorMessage = <any>error);
   }
 
   constructor(private data:DataService) { }
 
-  userUrl: string = 'http://library-json-server-api.herokuapp.com/Books?borrowedBy=' + this.data.logged.name;
+  userUrl: string = 'https://library-json-server-api.herokuapp.com/Books?borrowedBy=' + this.data.logged.name;
 
   ngOnInit() {
     this.data.getBook(this.userUrl)
       .subscribe(books => {
         this.books = books;
       },
-      error => this.data.errorMessage = <any>error);  
+      error => this.data.errorMessage = <any>error);
   }
 }
